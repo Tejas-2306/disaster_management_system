@@ -23,10 +23,9 @@ The system provides a centralized platform for reporting disasters, tracking aff
 
 ## Tech Stack
 
-* Backend: Python (Flask / Django – update accordingly)
+* Backend: Python (Django)
 * Frontend: HTML, CSS, JavaScript
-* Database: MySQL / PostgreSQL / SQLite (update accordingly)
-* Tools: Git, VS Code
+* Database: SQLite
 
 ## Database Design
 
@@ -42,42 +41,6 @@ The system provides a centralized platform for reporting disasters, tracking aff
   * Primary Keys
   * Foreign Keys
   * Normalization (to reduce redundancy)
-
-## Project Structure
-
-```id="dmk381"
-├── app/
-│   ├── routes.py
-│   ├── models.py
-│   ├── templates/
-│   ├── static/
-├── database/
-├── requirements.txt
-├── run.py
-├── README.md
-```
-
-## Installation
-
-```bash id="zv29xp"
-git clone https://github.com/your-username/disaster-management-system.git
-cd disaster-management-system
-pip install -r requirements.txt
-```
-
-## Usage
-
-Run the application:
-
-```bash id="kq91as"
-python run.py
-```
-
-Access in browser:
-
-```
-http://127.0.0.1:5000/
-```
 
 ## Key Highlights
 

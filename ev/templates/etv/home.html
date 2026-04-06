@@ -1,0 +1,472 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home - Natural Disasters Database</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Lato", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .w3-bar, h1, button {
+      font-family: "Montserrat", sans-serif;
+    }
+    .fa-anchor, .fa-coffee {
+      font-size: 200px;
+    }
+    .w3-top .w3-bar {
+      background-color: black;
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 0; /* Increased size of the navbar */
+    }
+    .w3-bar-item.w3-button {
+      color: white !important;
+      transition: color 0.3s;
+      padding: 12px 16px; /* Adjusted padding for button size */
+      font-size: 20px; /* Adjusted text size */
+    }
+    .w3-bar-item.w3-button:hover {
+      color: #ff69b4 !important; /* Pink hover effect for text */
+    }
+    .w3-bar .w3-bar-item {
+      padding: 16px;
+    }
+    .w3-bar .fa-bars {
+      margin-right: 16px;
+    }
+    header {
+      background: #444;
+      color: #fff;
+      padding: 128px 16px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 4em;
+    }
+    header p {
+      font-size: 1.5em;
+    }
+    .w3-container img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .w3-row-padding {
+      margin: 0 -16px;
+    }
+    .w3-padding-64 {
+      padding-top: 64px !important;
+      padding-bottom: 64px !important;
+    }
+    .w3-container h1 {
+      font-size: 2.5em;
+      color: #333;
+    }
+    .w3-padding-32 {
+      padding-top: 32px !important;
+      padding-bottom: 32px !important;
+    }
+    .w3-text-grey {
+      color: #757575 !important;
+    }
+    footer {
+      background: #000;
+      color: #fff;
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 20px; /* Space after last section */
+    }
+    footer h1 {
+      margin: 0;
+    }
+    .w3-opacity {
+      opacity: 0.8;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.5em;
+      }
+      header p {
+        font-size: 1em;
+      }
+      .w3-container h1 {
+        font-size: 1.5em;
+      }
+      .w3-top .w3-bar {
+        justify-content: space-between;
+      }
+      .w3-bar .w3-bar-item {
+        padding: 8px;
+      }
+    }
+    
+    /* Slider styles */
+    .slider-container {
+    width: 100%;
+    margin: 90px auto 0; /* Increased margin-top to position further below the navbar */
+    overflow: hidden;
+    position: relative;
+    height: 800px;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
+  .slide {
+    flex: 0 0 100%; /* Each slide takes 100% width of the slider */
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    object-fit: cover; /* Cover to fit width of the screen */
+    display: none; /* Hide all slides initially */
+    position: relative;
+  }
+
+  .slide.active {
+    display: block; /* Display active slide */
+  }
+
+  .slide-img {
+  width: 100vw; /* Use viewport width to stretch the image horizontally */
+  height: auto; /* Allow image to adjust height proportionally */
+  object-fit: cover; /* Cover the entire container without distorting the image */
+  max-height: 100%; /* Limit the maximum height of the image */
+}
+
+
+    /* Slide text overlay */
+    .slide .slide-text {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 300px;
+    }
+    
+    /* Manual control buttons */
+    .slider-controls {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-sizing: border-box;
+    }
+    
+    .slider-controls button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-size: 36px; /* Larger arrow size */
+      transition: color 0.3s;
+    }
+    
+    .slider-controls button:focus {
+      outline: none;
+    }
+    
+    .slider-controls button:hover {
+      color: darkpink; /* Dark pink hover effect for text */
+    }
+    
+    /* Section styles */
+    .section {
+      width: 90%;
+      margin: 0 auto;
+      margin-top: 20px;
+      margin-bottom: 20px; /* Space after each section */
+      display: flex;
+      border: 1px solid #ccc; /* Thin bevel border */
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .section-content {
+      flex: 1;
+      padding: 20px;
+    }
+    
+    .section-title {
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .section-image {
+      flex: 1;
+      text-align: center;
+      padding: 20px; /* Added padding for spacing */
+      display: flex;
+      justify-content: flex-end; /* Aligns images to the right */
+      align-items: center; /* Centers vertically */
+    }
+    
+    .section-image img {
+      width: 100%; /* Stretch image to fit container width */
+      height: auto; /* Maintain aspect ratio */
+      border-radius: 8px;
+      margin-top: 10px; /* Adjust top margin */
+      margin-bottom: 10px; /* Adjust bottom margin */
+    }
+    /* Marquee Styles */
+    .marquee-container {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      background-color: #ff69b4; /* Light gray background */
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      height: 60px; /* Adjust height as needed */
+    }
+
+    .marquee {
+      display: flex;
+      animation: marquee 27s linear infinite;
+      width: 100%; /* Ensure full width */
+    }
+
+    .marquee ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .marquee li {
+      padding: 20px 20px;
+      white-space: nowrap;
+      font-size: 1.5rem;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+.icon-large {
+  font-size: 1.7rem; /* Adjust icon size as needed */
+  margin-right: 10px; /* Adjust spacing between icon and text */
+}
+
+  </style>
+
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-card w3-large">
+    <!-- Information Icon and Text on the Left -->
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-none" style="position: absolute; left: 10px; font-size: xx-large; justify-content: center;margin-top: -10px;">
+      <i class="fa-solid fa-feather fa-xl" style="padding: 10px;margin-top: -2px;"></i> Disaster Awareness & Database
+    </a>
+    
+    <!-- Existing Navbar Links -->
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-padding-large w3-hover-white w3-large" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-home"></i> Home</a>
+    <a href="{% url 'quakes' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-globe"></i> Earthquake</a>
+    <a href="{% url 'tsunami' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-wave-square"></i> Tsunami</a>
+    <a href="{% url 'tornado' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-wind"></i> Tornado</a>
+    <a href="{% url 'volcano' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-mountain"></i> Volcanic Activity</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="{% url 'quakes' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-globe"></i> Earthquake</a>
+    <a href="{% url 'tsunami' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-wave-square"></i> Tsunami</a>
+    <a href="{% url 'tornado' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-wind"></i> Tornado</a>
+    <a href="{% url 'volcano' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-mountain"></i> Volcanic Activity</a>
+  </div>
+</div>
+
+
+
+<!-- Slider -->
+<div class="slider-container">
+  <div class="slider">
+    <div class="slide active">
+      <img src="{% static 'images/earthquake.jpg' %}" alt="Earthquake" class="slide-img">
+      <div class="slide-text">
+        <h2>Earthquake Information</h2>
+        <p>Learn more about earthquakes and their effects.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="{% static 'images/123.jpg' %}" alt="Tsunami" class="slide-img">
+      <div class="slide-text">
+        <h2>Tsunami Information</h2>
+        <p>Discover facts about tsunamis and how they form.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="{% static 'images/tornado.jpg' %}" alt="Tornado" class="slide-img">
+      <div class="slide-text">
+        <h2>Tornado Information</h2>
+        <p>Explore tornado characteristics and safety tips.</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="{% static 'images/volcano.jpg' %}" alt="Volcanic Activity" class="slide-img">
+      <div class="slide-text">
+        <h2>Volcanic Activity Information</h2>
+        <p>Learn about volcanic eruptions and volcanic hazards.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button onclick="prevSlide()">&#10094;</button>
+    <button onclick="nextSlide()">&#10095;</button>
+  </div>
+</div>
+
+<!-- Marquee Container -->
+<div class="marquee-container">
+  <div class="marquee">
+    <ul id="marquee-content" class="marquee-list">
+      <!-- Display latest earthquake data -->
+      <li><i class="fa-solid fa-house-chimney-crack icon-large"></i>Latest Earthquake: ID: {{ latest_quake.earthquake_id }}, Intensity: {{ latest_quake.intensity }}, Date: {{ latest_quake.date }}, Country: {{ latest_quake.country }}, Place: {{ latest_quake.place }}, Lat: {{ latest_quake.latitude }}, Long: {{ latest_quake.longitude }}</li>
+      
+      <!-- Display latest tsunami data -->
+      <li><i class="fa-solid fa-house-tsunami icon-large"></i> Latest Tsunami: ID: {{ latest_tsunami.tsunami_id }}, Date: {{ latest_tsunami.date }}, Country: {{ latest_tsunami.country }}, Place: {{ latest_tsunami.place }}, Wave Height: {{ latest_tsunami.wave_height }}, Spread Area: {{ latest_tsunami.spread_area }}</li>
+      
+      <!-- Display latest volcanic eruption data -->
+      <li><i class="fa-solid fa-volcano icon-large"></i> Latest Volcanic Eruption: ID: {{ latest_eruption.volcano_id }}, Mountain: {{ latest_eruption.mountain }}, Location: {{ latest_eruption.location }}, Year: {{ latest_eruption.year }}, Type: {{ latest_eruption.type }}, Subtype: {{ latest_eruption.subtype }}, Spread Area: {{ latest_eruption.spread_area }}</li>
+
+      <!-- Display latest tornado data -->
+      <li><i class="fa-solid fa-tornado icon-large"></i> Latest Tornado: ID: {{ latest_tornado.tornado_id }}, Date: {{ latest_tornado.date }}, Rotation: {{ latest_tornado.rotation }}, Wind Speed: {{ latest_tornado.wind_speed }}, Start Location: {{ latest_tornado.start_location }}, End Location: {{ latest_tornado.end_location }}, Distance Covered: {{ latest_tornado.distance_covered }}, Fujita Scale Rating: {{ latest_tornado.fujita_scale_rating }}</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- Sections -->
+<div class="section">
+  <div class="section-content">
+    <h1>Earthquake Information</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend odio et ex luctus, ac convallis ligula interdum. Sed vel erat magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec non turpis felis.</p>
+  </div>
+  <div class="section-image">
+    <img src="{% static 'images/earthquake1.jpg' %}" alt="Earthquake">
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <h1>Tsunami Information</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend odio et ex luctus, ac convallis ligula interdum. Sed vel erat magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec non turpis felis.</p>
+  </div>
+  <div class="section-image">
+    <img src="{% static 'images/london.jpg' %}" alt="Tsunami">
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <h1>Tornado Information</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend odio et ex luctus, ac convallis ligula interdum. Sed vel erat magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec non turpis felis.</p>
+  </div>
+  <div class="section-image">
+    <img src="{% static 'images/tornado2.jpg' %}" alt="Tornado">
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <h1>Volcanic Activity Information</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend odio et ex luctus, ac convallis ligula interdum. Sed vel erat magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec non turpis felis.</p>
+  </div>
+  <div class="section-image">
+    <img src="{% static 'images/volcano.jpg' %}" alt="Volcanic Activity">
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <h1>Contact Us</h1>
+</footer>
+
+<!-- JavaScript for slider -->
+<script>
+  let slideIndex = 1;
+  
+  function showSlide(n) {
+    const slides = document.getElementsByClassName("slide");
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+    for (let slide of slides) {
+      slide.style.display = "none";
+    }
+    slides[slideIndex - 1].style.display = "block";
+  }
+  
+  function prevSlide() {
+    showSlide(slideIndex -= 1);
+  }
+  
+  function nextSlide() {
+    showSlide(slideIndex += 1);
+  }
+  
+  // Automatic slideshow
+  function startAutoSlide() {
+    setInterval(() => {
+      showSlide(slideIndex += 1);
+    }, 5000); // Change slide every 5 seconds (5000 milliseconds)
+  }
+  
+  showSlide(slideIndex);
+  startAutoSlide(); // Start automatic slideshow
+
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+
+    // Populate marquee with earthquake data
+    document.addEventListener('DOMContentLoaded', function() {
+      const allQuakes = JSON.parse('{{ all_quakes_json | safe }}'); // Ensure all_quakes_json is passed from your view
+      const marqueeContent = document.getElementById('marquee-content');
+
+      allQuakes.forEach(quake => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `ID: ${quake.earthquake_id}, Intensity: ${quake.intensity}, Date: ${quake.date}, Country: ${quake.country}, Place: ${quake.place}, Lat: ${quake.latitude}, Long: ${quake.longitude}`;
+        marqueeContent.appendChild(listItem);
+      });
+    });
+</script>
+
+</body>
+</html>

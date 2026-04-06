@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home - Natural Disasters Database</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+    .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    .fa-anchor,.fa-coffee {font-size:200px}
+    .w3-bar, h1, button {
+        font-family: "Montserrat", sans-serif;
+      }
+      .fa-anchor, .fa-coffee {
+        font-size: 200px;
+      }
+      .w3-top .w3-bar {
+        background-color: black;
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px 0; /* Increased size of the navbar */
+      }
+      .w3-bar-item.w3-button {
+        color: white !important;
+        transition: color 0.3s;
+        padding: 12px 16px; /* Adjusted padding for button size */
+        font-size: 20px; /* Adjusted text size */
+      }
+      .w3-bar-item.w3-button:hover {
+        color: #ff69b4 !important; /* Pink hover effect for text */
+      }
+      .w3-bar .w3-bar-item {
+        padding: 16px;
+      }
+      .w3-bar .fa-bars {
+        margin-right: 16px;
+      }
+      @media (max-width: 600px) {
+        .w3-top .w3-bar {
+          justify-content: space-between;
+        }
+        .w3-bar .w3-bar-item {
+          padding: 8px;
+        }
+      }
+      .header {
+        position: relative;
+        text-align: center;
+        background-color: #f1f1f1; /* Light gray background for header */
+        padding: 80pxx; /* Adjust padding as needed */
+      }
+      .header img {
+        width: 100vw;
+        height: 800px;
+        display: block;
+      }
+      .header .text-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        font-size: 36px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .w3-container {
+  margin-top: 20px;
+}
+
+.w3-table-all {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1.5px solid #ff69b4; /* Border color */
+  box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.w3-table-all th,
+.w3-table-all td {
+  border: 0.5px solid #ff69b4; /* Border color */
+  padding: 8px;
+  text-align: center;
+  border-radius: 10px;
+}
+.footer {
+      margin-top: 30px; /* Added margin to create space above the footer */
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-card w3-large">
+    <!-- Information Icon and Text on the Left -->
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-none" style="position: absolute; left: 10px; font-size: xx-large; justify-content: center;margin-top: -10px;">
+      <i class="fa-solid fa-feather fa-xl" style="padding: 10px;margin-top: -2px;"></i> Disaster Awareness & Database
+    </a>
+    
+    <!-- Existing Navbar Links -->
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-padding-large w3-hover-white w3-large" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-home"></i> Home</a>
+    <a href="{% url 'quakes' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-globe"></i> Earthquake</a>
+    <a href="{% url 'tsunami' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-wave-square"></i> Tsunami</a>
+    <a href="{% url 'tornado' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-wind"></i> Tornado</a>
+    <a href="{% url 'volcano' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-none"><i class="fa fa-mountain"></i> Volcanic Activity</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="{% url 'quakes' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-globe"></i> Earthquake</a>
+    <a href="{% url 'tsunami' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-wave-square"></i> Tsunami</a>
+    <a href="{% url 'tornado' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-wind"></i> Tornado</a>
+    <a href="{% url 'volcano' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-mountain"></i> Volcanic Activity</a>
+  </div>
+</div>
+
+
+
+  <!-- Header with image -->
+  <div class="header">
+    <img src="{% static 'images/earthquake1.jpg' %}" alt="Header Image">
+    <div class="text-overlay">
+      <h1 class="w3-jumbo" style="margin-top: 400px;">Earthquakes</h1>
+      <p class="w3-xlarge">Natural Disasters Database</p>
+    </div>
+  </div>
+
+  <!-- Rest of your content -->
+  <div class="w3-container">
+    <h2>Earthquakes</h2>
+    <table class="w3-table-all">
+      <tr>
+        <th>Earthquake_id</th>
+        <th>Intensity</th>
+        <th>Date</th>
+        <th>Country</th>
+        <th>Place</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+      </tr>
+      {% for quake in all_quakes %}
+      <tr>
+        <td>{{quake.earthquake_id}}</td>
+        <td>{{quake.intensity}}</td>
+        <td>{{quake.date}}</td>
+        <td>{{quake.country}}</td>
+        <td>{{quake.place}}</td>
+        <td>{{quake.latitude}}</td>
+        <td>{{quake.longitude}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="w3-container">
+    <h2>Damage caused by the quakes</h2>
+    <table class="w3-table-all">
+      <tr>
+        <th>Earthquake_id</th>
+        <th>Amount (in million)</th>
+        <th>Deaths (in thousands)</th>
+        <th>House_destroyed (in thousands)</th>
+      </tr>
+      {% for d in damage %}
+      <tr>
+        <td>{{d.earthquake_id}}</td>
+        <td>{{d.amount}}</td>
+        <td>{{d.deaths}}</td>
+        <td>{{d.house_destroyed}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+<!-- Footer -->
+<footer class="footer w3-container w3-blue w3-padding-40 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-20">
+    <h1>Natural Disaster Management System 2021</h1>
+  </div>
+</footer>
+  <script>
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+  </script>
+
+</body>
+</html>
